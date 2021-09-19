@@ -1,7 +1,7 @@
 # Used Car Price Predictor
 
 Application description: 
-> This is an application that gives the user options to select the make, model and other options to a car to find the approximate market price of that car based on a large number of different used car price listings from web scraping Craigslist.
+> This is an application that gives the user options to select the make, model and other options to a car to find the approximate market price of that car based on a large number of different used car price listings from web scraping of Craigslist.
 
 May not be as good as Kelly Blue Book but it was fun to try:blush:
 
