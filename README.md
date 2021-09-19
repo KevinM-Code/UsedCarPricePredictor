@@ -7,7 +7,7 @@ May not be as good as Kelly Blue Book but it was fun to try:blush:
 
 ##### Directions to run the web application locally on a Windows 10 machine:
 
-1.`git clone https://github.com/KevinM-Code/UsedCarPricePredictor.git`
+1. `git clone https://github.com/KevinM-Code/UsedCarPricePredictor.git`
 
 2. Install Anaconda from [here](https://www.anaconda.com/products/individual-d) to run the web application locally *and* to view the Jupyter Notebook files in the `JupyterNotebook-DataCleaningandAnalysis` folder.    
    * **When installing _Anaconda_ make sure you check** 
