@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Car Dataset Analysis {% endblock %}
+
+{% block content %}
+
+<div class="row text-center">
+    <div class="col-lg-6 offset-lg-3">This is an application to help executives at RentMobility to make more informed
+        decisions about the the cars they would like to purchase or obtain the current asking prices for particular
+        used cars they may want to sell from the fleet.
+    </div>
+</div>
+
+<div class="row text-center">
+    <h2>Dataset Analysis</h2>
+</div>
+<br>
+<hr>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <img class="card-img-top" src="../static/AgeVSMileRelate.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Data Validity and Relationship</h4>
+                <p class="card-text">In this box plot you can see the correlation between the age of the car and the
+                    milage.
+                    This is the result of a 90,286 used car dataset that was collect by web scraping Craigslist car
+                    listings. This is an indication that our dataset is valid and will give us some good predictions.</p>
+                <p>
+                    Suspect data may not have mileage increase as the age of the car increases.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <img class="card-img-top" src="../static/PriceDistribution.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Price Distribution</h5>
+                <p class="card-text">This graph shows that 61.2% of the cars in the dataset are listed between
+                    $5,000 and $20,000. </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <img class="card-img-top" src="../static/PopularityBarGraph.png" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Car Model Popularity</h4>
+                <p class="card-text">The graph gives inventory managers an indication as to the popularity of the manufacturer
+                    of the cars in the dataset. This information could be useful in deciding how many of each make of car to have available.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <img class="card-img-top" src="../static/PredictedvsActual.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Predicted Price vs. Actual Price</h5>
+                <p class="card-text">As you can see that the price will be very close to the
+                    actual, giving use high confidence that
+                    the program will be able to give you an excellent estimation. </p>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+
+
+{% endblock %}

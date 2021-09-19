@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Car Price Predictor {% endblock %}
+
+{% block content %}
+
+
+    <style>
+        option[value="gmc"] {
+            text-transform: uppercase;
+        }
+
+        option {
+            text-transform: capitalize;
+        }
+
+
+        form {
+            float: right;
+        }
+
+        #results {
+            text-align: center;
+            font-size: xxx-large;
+        }
+    </style>
+
+
+    <div class="row mb-3">
+        <div class="col">
+        </div>
+        <div class="col mb-5 text-center">
+            <h2>
+                Welcome to the Used Car Price Predictor
+            </h2>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+            </div>
+            <div class="col mb-5 align-middle">
+                {% if prediction %}
+                    <div class="alert alert-success" role="alert" id="results">
+                        <h3>
+                            Your Predicted Price
+                        </h3>
+                        {{ prediction }}
+                    </div>
+                {% else %}
+                {% endif %}
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Please read</h4>
+        <p>
+            <strong>
+                Please select in order from top down as future selection options are dependant on what you select in
+                the current dropdown.
+            </strong>
+        </p>
+        <hr>
+        <p class="mb-0"><strong>ALL SELECTIONS ARE REQUIRED TO MAKE A PREDECTION.</strong></p>
+    </div>
+
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+
+            </div>
+            <div class="col mb-5 align-middle">
+
+                <form action="/reset/" method="POST">{% csrf_token %}
+                    <input class="btn btn-outline-danger " type="submit" value="Reset All Selections">
+                </form>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+
+            </div>
+            <div class="col mb-5 align-middle">
+
+                <form id="manuf-form" action="/manufacturer/" method="POST">{% csrf_token %}
+
+                </form>
+            </div>
+            <div id="make-selected" class="col">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="model-form" action="/model/" method="POST">{% csrf_token %}
+
+                </form>
+            </div>
+            <div id="model-selected" class="col">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="age-form" action="/age/" method="POST">{% csrf_token %}
+                </form>
+            </div>
+            <div id="age-selected" class="col">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="odometer-form" action="/odometer/" method="POST">{% csrf_token %}
+
+                </form>
+
+            </div>
+            <div id="odometer-selected" class="col">
+            </div>
+        </div>
+    </div>
+
+
+    <hr class="my-4">
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="fuel-form" action="/fuel/" method="POST">{% csrf_token %}
+                </form>
+            </div>
+            <div id="fuel-selected" class="col">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="trans-form" action="/transmission/" method="POST">{% csrf_token %}
+                </form>
+            </div>
+            <div id="trans-selected" class="col">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="type-form" action="/type/" method="POST">{% csrf_token %}
+                </form>
+            </div>
+            <div id="type-selected" class="col">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col mb-3">
+            </div>
+            <div class="col mb-5 align-middle">
+                <form id="color-form" action="/color/" method="POST">{% csrf_token %}
+                </form>
+            </div>
+            <div id="color-selected" class="col">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-2">
+                <form action="/prediction/" method="POST">{% csrf_token %}
+
+                    {% if enable_pred_button %}
+                        <input class="btn btn-primary" type="submit" value="Run Prediciton">
+                    {% else %}
+                        <input disabled class="btn btn-primary" type="submit" value="Run Prediction">
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        dropdownControl('manuf-form', 'make', 'makes', "Make: ", "Select Manufacturer")
+        dropdownControl('model-form', 'model', 'models', "Model: ", "Select Model")
+        dropdownControl('age-form', 'age', 'ages', "Age: ", "Select Age")
+        dropdownControl('odometer-form', 'odometer', 'odometers', "Odometer: ", "Select Odometer")
+        dropdownControl('fuel-form', 'fuel', 'fuels', "Fuel: ", "Select Fuel Type")
+        dropdownControl('trans-form', 'transmission', 'transmissions', "Transmission: ", "Select Transmission")
+
+
+        dropdownControl('type-form', 'type', 'types', "Type: ", "Select Type")
+        dropdownControl('color-form', 'color', 'colors', "Color: ", "Select Color")
+
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        selectionAlert('make-sel-div', 'make-selected', 'sel_make')
+        selectionAlert('model-sel-div', 'model-selected', 'sel_model')
+        selectionAlert('age-sel-div', 'age-selected', 'sel_age')
+        selectionAlert('odometer-sel-div', 'odometer-selected', 'sel_odometer')
+        selectionAlert('fuel-sel-div', 'fuel-selected', 'sel_fuel')
+        selectionAlert('transm-sel-div', 'trans-selected', 'sel_transm')
+        selectionAlert('type-sel-div', 'type-selected', 'sel_type')
+        selectionAlert('color-sel-div', 'color-selected', 'sel_color')
+
+
+        function selectionAlert(notificationDivName, parentDivId, selectionKey) {
+
+            var selection = getCookie(selectionKey);
+
+            var div = document.createElement("div");
+            div.name = notificationDivName;
+            div.id = notificationDivName;
+            if (selection === '') {
+                div.style.display = "none"
+            }
+            div.setAttribute('class', 'alert alert-success float-left');
+            div.setAttribute('role', 'alert');
+            var strong = document.createElement("strong");
+
+            if (selection === 'gmc') {
+                selection = selection.toUpperCase()
+            } else {
+                selection = capitalizeFirstLetter(selection)
+            }
+            strong.innerText = selection
+
+            var parentDiv = document.getElementById(parentDivId);
+
+            parentDiv.appendChild(div).appendChild(strong)
+        }
+
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+
+        function dropdownControl(formDropdnById, dropdownId, dropdownName, labelForDropdown,
+                                 dropdownPlaceholder) {
+
+            var options = getCookie(dropdownName);
+            options = options.split('|');
+
+            var formForDropdownByID = document.getElementById(formDropdnById);
+
+            var select = document.createElement("select");
+            select.name = dropdownId;
+            select.id = dropdownId;
+            select.disabled
+            select.setAttribute('class', 'btn btn-secondary dropdown-toggle');
+            select.setAttribute('data-toggle', 'dropdown');
+            select.setAttribute('aria-haspopup', 'true');
+            select.setAttribute('aria-expanded', 'false');
+            select.setAttribute('onchange', 'this.form.submit()');
+
+            var option = document.createElement("option");
+
+            option.value = "";
+            option.disabled;
+            option.innerText = dropdownPlaceholder;
+            option.setAttribute('class', 'dropdown-item bg-light text-dark');
+            option.setAttribute('name', dropdownName);
+            select.appendChild(option);
+
+            for (const val of options) {
+                option = document.createElement("option");
+                option.value = val;
+                option.text = val;
+                option.classList.add('dropdown-item')
+                option.classList.add('bg-light')
+                option.classList.add('text-dark')
+                option.name = dropdownName
+                select.appendChild(option);
+            }
+
+            var label = document.createElement("label");
+            label.innerHTML = labelForDropdown;
+            label.htmlFor = dropdownId;
+
+            formForDropdownByID.appendChild(label).appendChild(select);
+
+        }
+
+    </script>
+
+{% endblock %}
